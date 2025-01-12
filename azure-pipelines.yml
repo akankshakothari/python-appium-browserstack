@@ -3,9 +3,9 @@ trigger:
 
 variables:
 - name: BROWSERSTACK_USER
-  value: $(BROWSERSTACK_USERNAME)
+  value: $(BROWSERSTACK_USERNAME)  # Pipeline variable or secret
 - name: BROWSERSTACK_ACCESS
-  value: $(BROWSERSTACK_ACCESS_KEY)
+  value: $(BROWSERSTACK_ACCESS_KEY)  # Pipeline variable or secret
 
 pool:
   vmImage: ubuntu-latest
@@ -25,6 +25,11 @@ steps:
 
 - script: |
     # Run Appium tests
+    echo "Using BrowserStack Username: $BROWSERSTACK_USER"
+    echo "Using BrowserStack Access Key: $BROWSERSTACK_ACCESS"
     cd android
     browserstack-sdk python3 browserstack_sample.py
   displayName: 'Run Appium Tests'
+  env: # Pass environment variables explicitly
+    BROWSERSTACK_USER: $(BROWSERSTACK_USER)
+    BROWSERSTACK_ACCESS: $(BROWSERSTACK_ACCESS)
