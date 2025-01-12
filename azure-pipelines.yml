@@ -2,9 +2,9 @@ trigger:
 - master
 
 variables:
-- name: BROWSERSTACK_USERNAME
+- name: BROWSERSTACK_USER
   value: $(BROWSERSTACK_USERNAME)
-- name: BROWSERSTACK_ACCESS_KEY
+- name: BROWSERSTACK_ACCESS
   value: $(BROWSERSTACK_ACCESS_KEY)
 
 pool:
