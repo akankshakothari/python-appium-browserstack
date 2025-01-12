@@ -1,5 +1,5 @@
-userName: BROWSERSTACK_USER
-accessKey: BROWSERSTACK_ACCESS
+userName: $BROWSERSTACK_USER
+accessKey: $BROWSERSTACK_ACCESS
 framework: python
 app: bs://sample.app
 platforms:
