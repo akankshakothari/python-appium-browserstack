@@ -1,5 +1,5 @@
-userName: BROWSERSTACK_USERNAME
-accessKey: BROWSERSTACK_ACCESS_KEY
+userName: somethingtodi_Lv6Zrl
+accessKey: GpfdD8LmmizjefzpQUWM
 framework: python
 app: bs://sample.app
 platforms:
