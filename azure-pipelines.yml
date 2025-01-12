@@ -22,6 +22,11 @@ steps:
   displayName: "Install Python Dependencies"
 
 - script: |
+    echo "BROWSERSTACK_USER: $BROWSERSTACK_USER"
+    echo "BROWSERSTACK_ACCESS: $BROWSERSTACK_ACCESS"
+  displayName: "Echo values"
+
+- script: |
     # Replace placeholders in browserstack.yml with environment variable values
     sed -e "s|\$BROWSERSTACK_USER|$BROWSERSTACK_USER|g" \
         -e "s|\$BROWSERSTACK_ACCESS|$BROWSERSTACK_ACCESS|g" \
