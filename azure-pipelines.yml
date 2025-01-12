@@ -2,8 +2,8 @@ trigger:
 - master
 
 variables:
-  BROWSERSTACK_USER: $(BROWSERSTACK_USERNAME) # Reference secret variable
-  BROWSERSTACK_ACCESS: $(BROWSERSTACK_ACCESS_KEY) # Reference secret variable
+  BROWSERSTACK_USER: done # Reference secret variable
+  BROWSERSTACK_ACCESS: did # Reference secret variable
 
 pool:
   vmImage: ubuntu-latest
