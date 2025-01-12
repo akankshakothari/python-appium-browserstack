@@ -14,3 +14,4 @@ platforms:
     platformVersion: 11.0
 buildName: browserstack-build-1
 projectName: BrowserStack Sample
+
