@@ -1,0 +1,41 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+strategy:
+  matrix:
+    Python38:
+      python.version: '3.8'
+    Python39:
+      python.version: '3.9'
+    Python310:
+      python.version: '3.10'
+    Python311:
+      python.version: '3.11'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+  displayName: "Set Python Version"
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: '10.x'
+- task: BrowserStackConfig@0
+  inputs:
+    BrowserStackServiceEndPoint: 'browserstack-sa'
+
+- script: |
+    # Install Python dependencies
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: "Install Python Dependencies"
+
+- script: |
+    # Run Appium tests
+    browserstack-sdk python3 browserstack_sample.py
+  displayName: 'Run Appium Tests'
