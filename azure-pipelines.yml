@@ -2,10 +2,8 @@ trigger:
 - master
 
 variables:
-- name: BROWSERSTACK_USER
-  value: $(BROWSERSTACK_USERNAME)  # Pipeline variable or secret
-- name: BROWSERSTACK_ACCESS
-  value: $(BROWSERSTACK_ACCESS_KEY)  # Pipeline variable or secret
+  BROWSERSTACK_USER: $(BROWSERSTACK_USERNAME) # Reference secret variable
+  BROWSERSTACK_ACCESS: $(BROWSERSTACK_ACCESS_KEY) # Reference secret variable
 
 pool:
   vmImage: ubuntu-latest
@@ -24,12 +22,18 @@ steps:
   displayName: "Install Python Dependencies"
 
 - script: |
-    # Run Appium tests
-    echo "Using BrowserStack Username: $BROWSERSTACK_USER"
-    echo "Using BrowserStack Access Key: $BROWSERSTACK_ACCESS"
+    # Replace placeholders in browserstack.yml with environment variable values
+    sed -e "s|\$BROWSERSTACK_USER|$BROWSERSTACK_USER|g" \
+        -e "s|\$BROWSERSTACK_ACCESS|$BROWSERSTACK_ACCESS|g" \
+        browserstack.yml > browserstack_runtime.yml
+
+    echo "browserstack_runtime.yml created successfully:"
+    cat browserstack_runtime.yml
+
+    # Run tests with the modified browserstack_runtime.yml
     cd android
-    browserstack-sdk python3 browserstack_sample.py
+    browserstack-sdk python3 browserstack_sample.py --config ../browserstack_runtime.yml
   displayName: 'Run Appium Tests'
-  env: # Pass environment variables explicitly
+  env: # Pass secret variables to the script environment
     BROWSERSTACK_USER: $(BROWSERSTACK_USER)
     BROWSERSTACK_ACCESS: $(BROWSERSTACK_ACCESS)
