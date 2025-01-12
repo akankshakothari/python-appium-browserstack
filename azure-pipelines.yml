@@ -1,9 +1,12 @@
 trigger:
 - master
 
+variables:
+  BROWSERSTACK_USERNAME: $(BROWSERSTACK_USERNAME)
+  BROWSERSTACK_ACCESS_KEY: $(BROWSERSTACK_ACCESS_KEY)
+
 pool:
   vmImage: ubuntu-latest
-
 
 steps:
 - task: UsePythonVersion@0
@@ -11,14 +14,6 @@ steps:
     versionSpec: '3.7'
     addToPath: true
   displayName: "Set Python Version"
-- task: NodeTool@0
-  inputs:
-    versionSource: 'spec'
-    versionSpec: '10.x'
-    
-# - task: BrowserStackConfig@0
-#   inputs:
-#     BrowserStackServiceEndPoint: 'browserstack-sa'
 
 - script: |
     # Install Python dependencies
